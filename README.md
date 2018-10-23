@@ -16,9 +16,9 @@
 npm install fake-portal-cli -g
 ```
 
-## 检查依赖，保证项目中存在以下npm包
+## fake-portal 依赖以下npm包
 `
-以下的包是portal中需要使用的，你需要做的是确认这些包已经存在于当前项目下，如果不存在需要安装到当前项目下。
+以下的包是portal中需要使用的，执行中加入参数 -i将会自动安装以下包
 `
 - angular: `npm i angular --save`
 - angular-resource: `npm i angular-resource --save`
@@ -27,9 +27,11 @@ npm install fake-portal-cli -g
 - ccms-components: `npm i ccms-components --save`
 - oclazyload: `npm i oclazyload --save`
 
-## 生成fake portal
+## fake portal 命令
 ```
-fake-portal init
+fake-portal init // 生成fake-portal
+fake-portal init -i // 生成fake-portal，并自动安装portal所需的依赖
+fake-portal -help // 帮助信息
 ```
 
 ## 配置
@@ -51,3 +53,10 @@ fake-portal init
 
 #### 部分js报404错误
 这是由于portal的部分依赖在当前项目中未载入，请查看上方项`检查依赖，保证项目中存在以下npm包`
+
+## 开发调试
+```
+./bin/fake-portal.sh init // 生成fake-portal
+./bin/fake-portal.sh init -i // 生成fake-portal，并自动安装portal所需的依赖
+./bin/fake-portal.sh -help // 帮助信息
+```
