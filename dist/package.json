@@ -1,15 +1,14 @@
 {
     "name": "fake-portal-cli",
-    "version": "0.0.4",
+    "version": "0.0.8",
     "description": "init fake-portal",
     "preferGlobal": true,
-    "main": "bin/index",
     "bin": {
-        "fake-portal-cli": "./bin/index"
+        "fake-portal": "./bin/fake-portal.sh"
     },
     "scripts": {
         "init": "node ./script/init",
-        "build": "cp -R bin script sources package.json README.md dist"
+        "build": "cp -R bin lib sources package.json README.md dist"
     },
     "repository": {
         "type": "git",
@@ -24,7 +23,6 @@
     "dependencies": {
         "chalk": "^2.4.1",
         "commander": "^2.19.0",
-        "fs": "0.0.1-security",
-        "path": "^0.12.7"
+        "ui-router-extras": "^0.1.3"
     }
 }

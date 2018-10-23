@@ -1,8 +1,8 @@
-const program = require('commander');
-const { version } = require('../package');
+const program = require("commander");
+const { version } = require("../package");
 
 program
-.version(version)
+.version('0.0.1')
 .usage('<command> [options]')
-.command('init <project-name>', '初始化一个 ccms 子项目')
+.command('init <project-name>', '初始化 fake portal')
 .parse(process.argv);

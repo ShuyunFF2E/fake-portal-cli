@@ -10,6 +10,6 @@ window.fakeConf = {
 	// 是否使用iframe模式
 	isIframe: false,
 
-	// 项目的index.html地址
+	// 指向webpack-dev中的输出的index.html
 	url: '/content/index.html'
 };
