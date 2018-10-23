@@ -1,4 +1,15 @@
 # fake portal 脚手架
+## 目录结构
+- fake-portal-cli
+    - dist `构建后的文件`
+    - fake-portal `执行fake-portal init生成的文件`
+    - lib `执行所依赖文件`
+    - node_modules `外部依赖npm包`
+    - sources `执行前的本地文件`
+    - .gitignore
+    - package.json
+    - package-lock.json
+    - README.md
 
 ## 安装
 ```

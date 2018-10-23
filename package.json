@@ -7,7 +7,7 @@
         "fake-portal": "./bin/fake-portal.sh"
     },
     "scripts": {
-        "init": "node ./script/init",
+        "init": "./bin/fake-portal.sh init",
         "build": "rm -rf dist && mkdir dist && cp -R bin lib sources package.json README.md dist"
     },
     "repository": {
@@ -21,8 +21,13 @@
     },
     "homepage": "https://github.com/git.com/baukh789#readme",
     "dependencies": {
+        "angular": "^1.7.5",
+        "angular-resource": "^1.7.5",
+        "angular-ui-router": "^1.0.20",
+        "ccms-components": "^2.35.8",
         "chalk": "^2.4.1",
         "commander": "^2.19.0",
+        "oclazyload": "^1.1.0",
         "ui-router-extras": "^0.1.3"
     }
 }
