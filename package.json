@@ -8,7 +8,7 @@
     },
     "scripts": {
         "init": "node ./script/init",
-        "build": "cp -R bin lib sources package.json README.md dist"
+        "build": "rm -rf dist && mkdir dist && cp -R bin lib sources package.json README.md dist"
     },
     "repository": {
         "type": "git",
