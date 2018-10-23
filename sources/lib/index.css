@@ -26,11 +26,11 @@ html, body{
 .fake-portal-header h1:hover, .fake-portal-header a:hover{
 	color: #00aaf1;
 }
-ui-view{
+body > ui-view{
 	display: block;
-	height: calc(100vh - 50px);
+    width: 100%;
 }
-ui-view .fake-iframe{
+body > ui-view .fake-iframe{
 	width: 100%;
 	height: 100%;
 	padding: 0;
