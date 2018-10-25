@@ -1,13 +1,13 @@
 {
     "name": "fake-portal-cli",
-    "version": "0.1.2",
+    "version": "0.1.5",
     "description": "init fake-portal",
     "preferGlobal": true,
     "bin": {
         "fake-portal": "./bin/fake-portal.sh"
     },
     "scripts": {
-        "build": "rm -rf dist && mkdir dist && cp -R bin lib sources package.json README.md dist"
+        "build": "rm -rf dist && mkdir dist && zip -r sources.zip ./sources && cp -R bin lib sources sources.zip package.json README.md dist && rm -rf sources.zip"
     },
     "repository": {
         "type": "git",

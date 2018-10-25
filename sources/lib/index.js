@@ -75,20 +75,27 @@
 		// 清空值
 		$scope.credential = '';
 
-		// 保存token
-		$scope.saveCcmsRequestCredential = function (){
-			window.localStorage.setItem('ccmsRequestCredential', $scope.credential);
-			window.location.hash = `#/${$scope.uiSref}`;
-		};
+        // 保存token
+        $scope.saveCcmsRequestCredential = function (){
+            window.localStorage.setItem('ccmsRequestCredential', this.credential);
+            window.location.hash = `#/${$scope.uiSref}`;
+        };
 
-		// 重置token为默认值
-		$scope.resetCcmsRequestCredential = function (){
-			$scope.credential = $scope.defaultCredential;
-		};
+        // 重置token为默认值
+        $scope.resetCcmsRequestCredential = function (){
+            this.credential = $scope.defaultCredential;
+        };
 
-		// 在控制台解析
-		$scope.parseCcmsRequestCredential = function(){
-			const ccmsRequestCredential = angular.fromJson($scope.credential);
+        // 在控制台解析
+        $scope.parseCcmsRequestCredential = function(){
+            let ccmsRequestCredential = null;
+            try {
+                ccmsRequestCredential = angular.fromJson(this.credential);
+            } catch (e) {
+                console.warn('鉴权信息无效');
+                return;
+            }
+
 
 			// 校验鉴权
 			if (!angular.isObject(ccmsRequestCredential)) {

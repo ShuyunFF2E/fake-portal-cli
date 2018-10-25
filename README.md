@@ -48,7 +48,7 @@ fake-portal -help // 帮助信息
 `
 这些问题可能会出现，如果出现按以下方式进行处理。如果遇到了没有展现在下方的错误，请提交issues。
 `
-#### `TypeError: fs.copyFileSync is not a function`
+#### `TypeError: fs.xxxx is not a function`
 这是由于node的版本过低导致的，请升级你的的node版本。推荐使用[node升级神器-n](https://www.lovejavascript.com/#!zone/blog/content.html?id=68)
 
 #### 部分js报404错误
