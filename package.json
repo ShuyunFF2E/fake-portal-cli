@@ -1,6 +1,6 @@
 {
     "name": "fake-portal-cli",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "init fake-portal",
     "preferGlobal": true,
     "bin": {
@@ -11,14 +11,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/git.com/baukh789.git"
+        "url": "git+https://github.com/ShuyunFF2E/fake-portal-cli.git"
     },
     "author": "baukh",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/git.com/baukh789/issues"
+        "url": "https://github.com/ShuyunFF2E/fake-portal-cli/issues"
     },
-    "homepage": "https://github.com/git.com/baukh789#readme",
+    "homepage": "https://github.com/ShuyunFF2E/fake-portal-cli/blob/master/README.md",
     "dependencies": {
         "chalk": "^2.4.1",
         "commander": "^2.19.0"
