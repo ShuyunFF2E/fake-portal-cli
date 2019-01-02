@@ -1,5 +1,5 @@
 (function(fakeConf){
-	angular.module('ccms', ['ccms.components', 'ccms.projectRouter'])
+    angular.module('ccms', ['ccms.components', 'ccms.projectRouter', 'ccms.customerView', 'gridManager'])
 	.config(function ($urlRouterProvider, $httpProvider, $projectProvider) {
 		$httpProvider.interceptors.push(['$window', '$q', function ($window, $q) {
 			return {

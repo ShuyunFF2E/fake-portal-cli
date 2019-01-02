@@ -26,6 +26,9 @@ npm install fake-portal-cli -g
 - ui-router-extras: `npm i ui-router-extras --save`
 - ccms-components: `npm i ccms-components --save`
 - oclazyload: `npm i oclazyload --save`
+- ccms-customer-view: `npm i ccms-customer-view --save`
+- gridmanager-angular-1.x: `npm i gridmanager-angular-1.x --save`
+- gridmanager-ccms-skin: `npm i gridmanager-ccms-skin --save`
 
 ## fake portal 命令
 ```
