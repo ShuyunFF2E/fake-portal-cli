@@ -56,7 +56,7 @@
 	}, ['$urlRouterProvider', '$httpProvider', '$projectProvider',])
 
 	// fakePortalCtrl
-	.controller('fakePortalCtrl', function($scope){
+	.controller('fakePortalCtrl', function($scope, $http){
 		$scope.title = fakeConf.name;
 
 		// 是否为iframe模式
@@ -107,5 +107,24 @@
 			}
 			console.groupEnd();
 		};
+
+        // 填充localStorage
+        function setFackPortalLocalStorage() {
+            // TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 淘宝地址信息
+            $http.get('./lib/areas-tb.json').then(res => {
+                window.localStorage.setItem('TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+            });
+
+            // JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 京东地址信息
+            $http.get('./lib/areas-jd.json').then(res => {
+                window.localStorage.setItem('JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+            });
+
+            // UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 全渠道地址信息
+            $http.get('./lib/areas-unification.json').then(res => {
+                window.localStorage.setItem('UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+            });
+        }
+        setFackPortalLocalStorage();
 	});
 })(window.fakeConf);
