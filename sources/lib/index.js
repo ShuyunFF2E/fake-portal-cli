@@ -96,7 +96,6 @@
                 return;
             }
 
-
 			// 校验鉴权
 			if (!angular.isObject(ccmsRequestCredential)) {
 				console.warn('鉴权信息无效');
