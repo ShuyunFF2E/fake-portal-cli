@@ -124,6 +124,11 @@
             $http.get('./lib/areas-unification.json').then(res => {
                 window.localStorage.setItem('UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
             });
+
+            // UNIFIFCATION_AREA_SELECTOR_DATA: 四层地址信息
+            $http.get('./lib/areas-level-4.json').then(res => {
+                window.localStorage.setItem('UNIFIFCATION_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+            });
         }
         setFackPortalLocalStorage();
 	});
