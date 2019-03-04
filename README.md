@@ -20,15 +20,17 @@ npm install fake-portal-cli -g
 `
 以下的包是portal中需要使用的，执行中加入参数 -i将会自动安装以下包
 `
-- angular: `npm i angular --save`
-- angular-resource: `npm i angular-resource --save`
-- angular-ui-router: `npm i angular-ui-router --save`
-- ui-router-extras: `npm i ui-router-extras --save`
-- ccms-components: `npm i ccms-components --save`
-- oclazyload: `npm i oclazyload --save`
-- ccms-customer-view: `npm i ccms-customer-view --save`
-- gridmanager-angular-1.x: `npm i gridmanager-angular-1.x --save`
-- gridmanager-ccms-skin: `npm i gridmanager-ccms-skin --save`
+- angular
+- angular-resource
+- angular-ui-router
+- ui-router-extras
+- ccms-components
+- @shuyun/ccms-business-components
+- ccms-customer-view
+- oclazyload
+- echarts
+- gridmanager-angular-1.x
+- gridmanager-ccms-skin
 
 ## fake portal 命令
 ```
