@@ -56,7 +56,7 @@
 	}, ['$urlRouterProvider', '$httpProvider', '$projectProvider',])
 
 	// fakePortalCtrl
-	.controller('fakePortalCtrl', function($scope, $http){
+	.controller('fakePortalCtrl', function($rootScope, $scope, $http){
 		$scope.title = fakeConf.name;
 
 		// 是否为iframe模式
@@ -131,5 +131,29 @@
             });
         }
         setFackPortalLocalStorage();
+
+        // 挂载rootScope
+        function updateRootScope() {
+            const credential = window.localStorage.getItem('ccmsRequestCredential');
+            let ccmsRequestCredential = null;
+            try {
+                ccmsRequestCredential = angular.fromJson(credential);
+            } catch (e) {
+                console.warn('鉴权信息无效');
+                return;
+            }
+
+            // 校验鉴权
+            if (!angular.isObject(ccmsRequestCredential)) {
+                console.warn('鉴权信息无效');
+                return;
+            }
+            $rootScope.tenantId = ccmsRequestCredential.tenantId;
+            $rootScope.user = {
+                id: ccmsRequestCredential.userId,
+                name: ccmsRequestCredential.username
+            };
+        }
+        updateRootScope();
 	});
 })(window.fakeConf);
