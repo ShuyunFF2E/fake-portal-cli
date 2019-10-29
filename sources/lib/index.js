@@ -57,7 +57,11 @@
 
 	// fakePortalCtrl
 	.controller('fakePortalCtrl', function($rootScope, $scope, $http){
-		$scope.title = fakeConf.name;
+        // 将缓存对像绑定至rootScope, 用于在各模块中调用
+        $rootScope[CACHE_KEY] = window[CACHE_KEY];
+        delete window[CACHE_KEY];
+
+        $scope.title = fakeConf.name;
 
 		// 是否为iframe模式
 		$scope.isIframe = fakeConf.isIframe;
