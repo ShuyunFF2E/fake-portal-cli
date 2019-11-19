@@ -21,6 +21,9 @@ const modulesMap = {
     crowdMarketing: {
         name: '人群营销'
     },
+    ebm: {
+        name: '事件关怀'
+    },
     benefit: {
         name: '权益管理'
     },
