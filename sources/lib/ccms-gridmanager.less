@@ -1,0 +1,163 @@
+@table-header-color: #f2f2f2;
+@table-border: 1px solid #eee;
+@sort-action-color: #ccc;
+@sort-action-color-hover: #0083ba;
+@footer-toolbar-bg: #f6f6f6;
+@th-text-color: #666;
+@th-sort-color: #0083ba;
+@refresh-action-color: #666;
+@pagination-bg: #f6f6f6;
+@pagination-color: #929292;
+@pagination-disabled-color: #d1d1d1;
+@loading-bg: #fff;
+@loading-stroke-width: 3;
+@loading-stroke-color: #00aaf1;
+
+.table-wrap.ccms-skin,
+.table-wrap.cloud-react-skin.icon-follow-text {
+	// 表头底色
+	.table-header{
+		background-color: @table-header-color;
+		background-image: none;
+	}
+
+	// th区域
+	[grid-manager] th {
+		padding: 0 !important;
+		.th-wrap {
+			padding: 6px !important;
+			.sorting-action.sorting-down .sa-up,
+			.sorting-action.sorting-up .sa-down {
+				opacity: 1;
+				color: @sort-action-color;
+			}
+		}
+		.th-wrap .sorting-action {
+			visibility: hidden;
+		}
+		.th-wrap:hover .sorting-action{
+			visibility: visible;
+			color:@sort-action-color-hover !important;
+		}
+
+		.th-text {
+			color: @th-text-color;
+			font-weight: 400;
+			i {
+				font-size: 16px !important;
+				color: @th-sort-color;
+			}
+		}
+	}
+	// 配置区域
+	.gm-config-area {
+		.config-action {
+			display: none;
+		}
+	}
+
+	// tbody区域
+	[grid-manager] tbody {
+		tr:not([top-full-column-interval=true]):not([top-full-column=true]) > td {
+			height: 42px;
+			min-height: 42px;
+			padding: 6px;
+			> div {
+				white-space: normal;
+			}
+		}
+		tr[top-full-column=true] {
+			border-top: @table-border;
+			border-bottom: @table-border;
+			td{
+				border-left: 0;
+				border-right: 0;
+				.full-column-td {
+					border-top: 0;
+				}
+			}
+		}
+		tr[top-full-column-interval=true] td > div {
+			height: 6px;
+		}
+		.init-msg {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			.warning {
+				height: 40px;
+				color: #ddd;
+				font-size: 40px;
+				vertical-align: middle;
+			}
+			.msg {
+				height: 40px;
+				font-size: 14px;
+				margin-left: 15px;
+				color: #999;
+			}
+		}
+	}
+
+	// 分页区域
+	.gm-toolbar {
+		background: @footer-toolbar-bg;
+		background-image: none;
+		.change-size {
+			position: absolute;
+			top: 7px;
+			right: 0;
+		}
+		.totals-count {
+			margin-left: 2px;
+			display: inline-block;
+			height: 30px;
+			padding: 6px 7px;
+			vertical-align: middle;
+		}
+		/* 无总页模式不显示总条数 */
+		&[no-totals-mode="true"] {
+			.totals-count {
+				display: none;
+			}
+		}
+		.refresh-action {
+			color: @refresh-action-color;
+			padding: 6px;
+			i {
+				vertical-align: -1px;
+			}
+			.refresh-label {
+				margin-left: 3px;
+			}
+		}
+
+		.pagination {
+			bottom: 6px;
+			right: 60px;
+			.goto-page {
+				padding: 1.5px 10px;
+			}
+			> ul {
+				> li {
+					border: none !important;
+					background: #f6f6f6 !important;
+					padding: 7px 10px;
+					> svg {
+						width: 16px;
+						height: 16px;
+						fill: #929292 !important;
+					}
+					&.disabled > svg {
+						fill: #d1d1d1 !important;
+					}
+					&.previous-page,
+					&.first-page {
+						transform: rotate(180deg) !important;
+					}
+				}
+			}
+		}
+	}
+}
