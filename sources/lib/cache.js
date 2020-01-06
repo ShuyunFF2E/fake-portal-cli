@@ -10,8 +10,11 @@ const modulesMap = {
         name: '公共资源'
     },
     ndashboard: {
-        name: '首页'
+        name: '首页 1.0'
     },
+	home: {
+		name: '首页 2.0'
+	},
     customerInsight: {
         name: '客户洞察'
     },
