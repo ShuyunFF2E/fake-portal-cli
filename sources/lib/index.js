@@ -55,7 +55,12 @@
 
 	}, ['$urlRouterProvider', '$httpProvider', '$projectProvider',])
 
-	// fakePortalCtrl
+	// 开启取消请求功能
+    .config(['$resourceProvider', $resourceProvider => {
+	    $resourceProvider.defaults.cancellable = true;
+    }])
+
+    // fakePortalCtrl
 	.controller('fakePortalCtrl', function($rootScope, $scope, $http){
         // 将缓存对像绑定至rootScope, 用于在各模块中调用
         $rootScope[CACHE_KEY] = window[CACHE_KEY];
