@@ -44,13 +44,13 @@ function $ProjectProvider($futureStateProvider) {
         $log.error(err);
         return $q.reject(err);
       };
-      var promise = $ocLazyLoad.load(scripts.shift());
+      var promise = $ocLazyLoad.load(scripts.shift(), {serie: true});
       var nextGroup;
 
       while (scripts.length) {
         nextGroup = scripts.shift();
         promise = promise.then(function() {
-          return $ocLazyLoad.load(nextGroup);
+          return $ocLazyLoad.load(nextGroup, {serie: true});
         });
       }
 
