@@ -64,7 +64,6 @@
 	.controller('fakePortalCtrl', function($rootScope, $scope, $http){
         // 将缓存对像绑定至rootScope, 用于在各模块中调用
         $rootScope[CACHE_KEY] = window[CACHE_KEY];
-        delete window[CACHE_KEY];
 
         $scope.title = fakeConf.name;
 

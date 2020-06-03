@@ -9,9 +9,6 @@ const modulesMap = {
     common: {
         name: '公共资源'
     },
-    ndashboard: {
-        name: '首页 1.0'
-    },
 	home: {
 		name: '首页 2.0'
 	},
@@ -91,6 +88,25 @@ window[CACHE_KEY] = {
             resolve(new Date());
         });
     },
+
+	/**
+	 * 获取地址数据
+	 * @param platform: top, unification, jos, unification_data_manage
+	 * @returns {Promise<unknown>}
+	 */
+	getAreaData(platform) {
+		// 目前数据未放至统一的位置: 还有其它地方在直接调用原先的存储，等全部替换为该方法后再更新存储位置
+		const itemKey = {
+			top: 'TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA',
+			unification: 'UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA',
+			jos: 'JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA',
+			unification_data_manage: 'UNIFIFCATION_AREA_SELECTOR_DATA'
+		}[platform];
+		const data = localStorage.getItem(itemKey);
+		return new Promise(resolve => {
+			resolve(JSON.parse(data));
+		});
+	},
 
     /**
      * 获取指定模块的缓存
