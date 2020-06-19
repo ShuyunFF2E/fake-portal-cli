@@ -1,6 +1,8 @@
-(function(fakeConf){
-    angular.module('ccms', ['ccms.components', 'ccms.business.components', 'ccms.projectRouter', 'ccms.customerView', 'gridManager'])
+(function(fakeConf, axios){
+	// angular
+	angular.module('ccms', ['ccms.components', 'ccms.business.components', 'ccms.projectRouter', 'ccms.customerView', 'gridManager'])
 	.config(function ($urlRouterProvider, $httpProvider, $projectProvider) {
+
 		$httpProvider.interceptors.push(['$window', '$q', function ($window, $q) {
 			return {
 				'request': function (config) {
@@ -19,7 +21,7 @@
 					return response;
 				},
 				'responseError': function (rejection) {
-					if (rejection.status === 403) {
+					if (rejection.status === 401) {
 						console.error('对不起, 您没有权限, 请联系管理员!');
 					}
 
@@ -56,16 +58,16 @@
 	}, ['$urlRouterProvider', '$httpProvider', '$projectProvider',])
 
 	// 开启取消请求功能
-    .config(['$resourceProvider', $resourceProvider => {
-	    $resourceProvider.defaults.cancellable = true;
-    }])
+	.config(['$resourceProvider', $resourceProvider => {
+		$resourceProvider.defaults.cancellable = true;
+	}])
 
-    // fakePortalCtrl
+	// fakePortalCtrl
 	.controller('fakePortalCtrl', function($rootScope, $scope, $http){
-        // 将缓存对像绑定至rootScope, 用于在各模块中调用
-        $rootScope[CACHE_KEY] = window[CACHE_KEY];
+		// 将缓存对像绑定至rootScope, 用于在各模块中调用
+		$rootScope[CACHE_KEY] = window[CACHE_KEY];
 
-        $scope.title = fakeConf.name;
+		$scope.title = fakeConf.name;
 
 		// 是否为iframe模式
 		$scope.isIframe = fakeConf.isIframe;
@@ -83,26 +85,26 @@
 		// 清空值
 		$scope.credential = '';
 
-        // 保存token
-        $scope.saveCcmsRequestCredential = function (){
-            window.localStorage.setItem('ccmsRequestCredential', this.credential);
-            window.location.hash = `#/${$scope.uiSref}`;
-        };
+		// 保存token
+		$scope.saveCcmsRequestCredential = function (){
+			window.localStorage.setItem('ccmsRequestCredential', this.credential);
+			window.location.hash = `#/${$scope.uiSref}`;
+		};
 
-        // 重置token为默认值
-        $scope.resetCcmsRequestCredential = function (){
-            this.credential = $scope.defaultCredential;
-        };
+		// 重置token为默认值
+		$scope.resetCcmsRequestCredential = function (){
+			this.credential = $scope.defaultCredential;
+		};
 
-        // 在控制台解析
-        $scope.parseCcmsRequestCredential = function(){
-            let ccmsRequestCredential = null;
-            try {
-                ccmsRequestCredential = angular.fromJson(this.credential);
-            } catch (e) {
-                console.warn('鉴权信息无效');
-                return;
-            }
+		// 在控制台解析
+		$scope.parseCcmsRequestCredential = function(){
+			let ccmsRequestCredential = null;
+			try {
+				ccmsRequestCredential = angular.fromJson(this.credential);
+			} catch (e) {
+				console.warn('鉴权信息无效');
+				return;
+			}
 
 			// 校验鉴权
 			if (!angular.isObject(ccmsRequestCredential)) {
@@ -116,52 +118,89 @@
 			console.groupEnd();
 		};
 
-        // 填充localStorage
-        function setFackPortalLocalStorage() {
-            // TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 淘宝地址信息
-            $http.get('./lib/areas-tb.json').then(res => {
-                window.localStorage.setItem('TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
-            });
+		// 填充localStorage
+		function setFackPortalLocalStorage() {
+			// TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 淘宝地址信息
+			$http.get('./lib/areas-tb.json').then(res => {
+				window.localStorage.setItem('TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+			});
 
-            // JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 京东地址信息
-            $http.get('./lib/areas-jd.json').then(res => {
-                window.localStorage.setItem('JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
-            });
+			// JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 京东地址信息
+			$http.get('./lib/areas-jd.json').then(res => {
+				window.localStorage.setItem('JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+			});
 
-            // UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 全渠道地址信息
-            $http.get('./lib/areas-unification.json').then(res => {
-                window.localStorage.setItem('UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
-            });
+			// UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA: 全渠道地址信息
+			$http.get('./lib/areas-unification.json').then(res => {
+				window.localStorage.setItem('UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+			});
 
-            // UNIFIFCATION_AREA_SELECTOR_DATA: 四层地址信息
-            $http.get('./lib/areas-level-4.json').then(res => {
-                window.localStorage.setItem('UNIFIFCATION_AREA_SELECTOR_DATA', JSON.stringify(res.data));
-            });
-        }
-        setFackPortalLocalStorage();
+			// UNIFIFCATION_AREA_SELECTOR_DATA: 四层地址信息
+			$http.get('./lib/areas-level-4.json').then(res => {
+				window.localStorage.setItem('UNIFIFCATION_AREA_SELECTOR_DATA', JSON.stringify(res.data));
+			});
+		}
+		setFackPortalLocalStorage();
 
-        // 挂载rootScope
-        function updateRootScope() {
-            const credential = window.localStorage.getItem('ccmsRequestCredential');
-            let ccmsRequestCredential = null;
-            try {
-                ccmsRequestCredential = angular.fromJson(credential);
-            } catch (e) {
-                console.warn('鉴权信息无效');
-                return;
-            }
+		// 挂载rootScope
+		function updateRootScope() {
+			const credential = window.localStorage.getItem('ccmsRequestCredential');
+			let ccmsRequestCredential = null;
+			try {
+				ccmsRequestCredential = angular.fromJson(credential);
+			} catch (e) {
+				console.warn('鉴权信息无效');
+				return;
+			}
 
-            // 校验鉴权
-            if (!angular.isObject(ccmsRequestCredential)) {
-                console.warn('鉴权信息无效');
-                return;
-            }
-            $rootScope.tenantId = ccmsRequestCredential.tenantId;
-            $rootScope.user = {
-                id: ccmsRequestCredential.userId,
-                name: ccmsRequestCredential.username
-            };
-        }
-        updateRootScope();
+			// 校验鉴权
+			if (!angular.isObject(ccmsRequestCredential)) {
+				console.warn('鉴权信息无效');
+				return;
+			}
+			$rootScope.tenantId = ccmsRequestCredential.tenantId;
+			$rootScope.user = {
+				id: ccmsRequestCredential.userId,
+				name: ccmsRequestCredential.username
+			};
+		}
+		updateRootScope();
 	});
-})(window.fakeConf);
+
+	// axios: react项目在使用，后续将会全部替换为axios
+	const createFn = axios.create;
+	const addInterceptors = http => {
+		http.defaults.withCredentials = true;
+		http.interceptors.request.use(config => {
+			try{
+				const ccmsRequestCredential = JSON.parse(window.localStorage.getItem('ccmsRequestCredential'));
+				config.headers['X-TOKEN'] = ccmsRequestCredential.id;
+				config.headers['Cache-Control'] = 'no-cache';
+			} catch (e){
+				console.error('X-TOKEN 获取异常， 请点击右上角的更新Token');
+			}
+			return config;
+		});
+		http.interceptors.response.use(response => {
+			return response;
+		}, error => {
+			if (error.response.status === 401) {
+				console.error('对不起, 您没有权限, 请联系管理员!');
+			}
+
+			if (error.response.status === 500) {
+				console.error('服务器端出错了 /(ㄒoㄒ)/~~');
+			}
+			return Promise.reject(error);
+		});
+	};
+
+	// 增加拦截器: 通过create创建实例方式
+	axios.create = config => {
+		const http = createFn(config);
+		addInterceptors(http);
+		return http;
+	};
+	// 增加拦截器: 通过全局对像方式
+	addInterceptors(axios);
+})(window.fakeConf, window.axios);
