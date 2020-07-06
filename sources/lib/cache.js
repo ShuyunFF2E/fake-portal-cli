@@ -90,6 +90,19 @@ window[CACHE_KEY] = {
     },
 
 	/**
+	 * 获取token信息
+	 * @returns {*}
+	 */
+	getToken() {
+		const data = localStorage.getItem('ccmsRequestCredential');
+		let token;
+		if (data) {
+			token = JSON.parse(data).id;
+		}
+		return token;
+	},
+
+	/**
 	 * 获取地址数据
 	 * @param platform: top, unification, jos, unification_data_manage
 	 * @returns {Promise<unknown>}
