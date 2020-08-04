@@ -1,6 +1,6 @@
 (function(fakeConf, axios){
 	// angular
-	angular.module('ccms', ['ccms.components', 'ccms.business.components', 'ccms.projectRouter', 'ccms.customerView', 'gridManager'])
+	angular.module('ccms', ['ccms.components', 'ccms.business.components', 'ccms.projectRouter', 'gridManager'])
 	.config(function ($urlRouterProvider, $httpProvider, $projectProvider) {
 
 		$httpProvider.interceptors.push(['$window', '$q', function ($window, $q) {
