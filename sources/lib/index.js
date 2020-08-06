@@ -184,10 +184,6 @@
 		http.interceptors.response.use(response => {
 			return response;
 		}, error => {
-			// 当前接口被取消: 阻止axios取消接口时进入catch
-			if (axios.isCancel(error)) {
-				return;
-			}
 			if (error.response && error.response.status === 401) {
 				console.error('对不起, 您没有权限, 请联系管理员!');
 			}
