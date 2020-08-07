@@ -35,11 +35,8 @@ const ajaxPageTemplate = `<div class="gm-toolbar" grid-manager-toolbar="{{vm.gri
 </div>
 `;
 
-function setGridManagerDefault($gridManager) {
+function setGridManagerDefault(angularGridManager, ReactGridManager) {
 	const defaultOption = {
-		width: '100%',
-		height: '100%',
-
 		// 默认不支持右键菜单
 		supportMenu: false,
 
@@ -70,6 +67,15 @@ function setGridManagerDefault($gridManager) {
 		// 数据使用后端返回的list数组
 		dataKey: 'list',
 
+		// 切换页码
+		sizeData: [10, 20, 30, 50]
+	};
+
+	// angular
+	angularGridManager.defaultOption = {
+		width: '100%',
+		height: '100%',
+		...defaultOption,
 		// 页样式名称
 		skinClassName: 'ccms-skin',
 
@@ -79,6 +85,7 @@ function setGridManagerDefault($gridManager) {
 		ajaxPageTemplate: ajaxPageTemplate
 	};
 
-	$gridManager.defaultOption = defaultOption;
+	// react
+	ReactGridManager.mergeDefaultOption(defaultOption);
 }
-setGridManagerDefault(window.GridManager);
+setGridManagerDefault(window.GridManager, window.CloudReact.Table);
