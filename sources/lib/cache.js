@@ -3,36 +3,47 @@ window.CACHE_KEY = '__FF2E__CACHE__';
 const CACHE_TARGET = isLocal => {
     return isLocal ? window.localStorage : window.sessionStorage;
 };
-
+// 平台所需常量: 用于各模块
+const PLAT_KEY_LIST = ['TAOBAO', 'JOS', 'YHD', 'SUNING', 'MGJ', 'YOUZAN', 'OFFLINE', 'DD', 'WX', 'DOUYIN', 'OMNI'];
+const PLAT_CODE_LIST = ['taobao', 'jos', 'yhd', 'suning', 'mogujie', 'youzan', 'offline', 'dangdang', 'weixin', 'douyin', 'omni'];
+const PLAT_NAME_LIST = ['淘宝', '京东', '一号店', '苏宁', '蘑菇街', '有赞', '线下', '当当', '微信', '抖音', '全渠道'];
+const PLAT_MAP = {
+	key: PLAT_KEY_LIST,
+	code: PLAT_CODE_LIST,
+	name: PLAT_NAME_LIST
+};
 const modulesMap = {
-    // 除了portal 可以对common 进行 set操作
-    common: {
-        name: '公共资源'
-    },
+	// 只有portal 可以对 PORTAL_CACHE_KEY项 进行 set操作
+	common: {
+		name: '公共资源'
+	},
 	home: {
 		name: '首页 2.0'
 	},
-    customerInsight: {
-        name: '客户洞察'
-    },
-    customerGrouping: {
-        name: '客户分群'
-    },
-    crowdMarketing: {
-        name: '人群营销'
-    },
-    ebm: {
-        name: '事件关怀'
-    },
-    benefit: {
-        name: '权益管理'
-    },
-    le: {
-        name: '忠诚度3'
-    },
-    dataManager: {
-        name: '数据管理'
-    }
+	customerInsight: {
+		name: '客户洞察'
+	},
+	customerGrouping: {
+		name: '客户分群'
+	},
+	crowdMarketing: {
+		name: '人群营销'
+	},
+	ebm: {
+		name: '事件关怀'
+	},
+	benefit: {
+		name: '权益管理'
+	},
+	le: {
+		name: '忠诚度3'
+	},
+	dataManager: {
+		name: '数据管理'
+	},
+	wxcrm: {
+		name: '微信CRM'
+	}
 };
 
 const getModule = (module, isLocal) => {
@@ -61,23 +72,16 @@ const clearCache = isLocal => {
 /**
  * 验证当前模块是否允许操作[内部方法]
  * @param module
- * @param isSet: 是否为set操作
  * @returns {boolean}
  * @private
  */
-const checkModule = (module, isSet) => {
-    const hash = window.location.hash;
+const checkModule = module => {
     const moduleInfo = modulesMap[module];
     if (!moduleInfo) {
         console.error('当前模块未注册缓存服务, 请联系portal');
         return;
     }
 
-    const route = hash.split('/')[1];
-    if ((module !== route && isSet) || (module !== route && isSet)) {
-        console.error(`在${route}模块中不允许操作${module}模块的缓存`);
-        return;
-    }
     return true;
 };
 
@@ -103,8 +107,47 @@ window[CACHE_KEY] = {
 	},
 
 	/**
+	 * 将url转换为二维码
+	 * @param url
+	 * @returns {Promise<*>}
+	 */
+	toQRCode(url) {
+		console.warn('toQRCode 在本地环境下调用的是qa-qiushi6租户的接口');
+		return fetch(`https://qa-qiushi6-ccms.shuyun.com/qr-code?url=${url}`).then(res => res.json());
+	},
+
+	/**
+	 * 获取平台信息
+	 * @param key
+	 * @param value: 字符串或数组，当为数组时返回嵌套map
+	 * @returns {{}}
+	 */
+	getPlatMap(key, value) {
+		const keyList = PLAT_MAP[key];
+		const map = {};
+		// value 非数组
+		if (!Array.isArray(value)) {
+			const valueList = PLAT_MAP[value];
+			keyList.forEach((item, index) => {
+				map[item] = valueList[index];
+			});
+			return map;
+		}
+
+		// value 为数组
+		keyList.forEach((item, index) => {
+			const o = {};
+			value.forEach(val => {
+				o[val] = PLAT_MAP[val][index];
+			});
+			map[item] = o;
+		});
+		return map;
+	},
+
+	/**
 	 * 获取地址数据
-	 * @param platform: top, unification, jos, unification_data_manage
+	 * @param platform: top, unification, jos
 	 * @returns {Promise<unknown>}
 	 */
 	getAreaData(platform) {
@@ -112,8 +155,7 @@ window[CACHE_KEY] = {
 		const itemKey = {
 			top: 'TB_CCMS_COMPONENTS_AREA_SELECTOR_DATA',
 			unification: 'UNIFICATION_CCMS_COMPONENTS_AREA_SELECTOR_DATA',
-			jos: 'JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA',
-			unification_data_manage: 'UNIFIFCATION_AREA_SELECTOR_DATA'
+			jos: 'JD_CCMS_COMPONENTS_AREA_SELECTOR_DATA'
 		}[platform];
 		const data = localStorage.getItem(itemKey);
 		return new Promise(resolve => {
@@ -128,7 +170,7 @@ window[CACHE_KEY] = {
      * @returns {*}
      */
     get(module, isLocal) {
-        if (!checkModule(module, false)) {
+        if (!checkModule(module)) {
             return {};
         }
         return getModule(module, isLocal);
@@ -142,7 +184,7 @@ window[CACHE_KEY] = {
      * @returns {boolean}
      */
     set(module, obj, isLocal) {
-        if (!checkModule(module, true)) {
+        if (!checkModule(module)) {
             return false;
         }
         setModule(module, obj, isLocal);
