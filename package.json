@@ -1,6 +1,6 @@
 {
     "name": "fake-portal-cli",
-    "version": "0.3.15",
+    "version": "0.3.16",
     "description": "init fake-portal",
     "preferGlobal": true,
     "bin": {

@@ -29,6 +29,7 @@ html, body{
 body > ui-view{
 	display: block;
     width: 100%;
+	height: calc(100% - 50px);
 }
 body > ui-view .fake-iframe{
 	width: 100%;
