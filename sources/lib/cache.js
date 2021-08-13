@@ -4,9 +4,9 @@ const CACHE_TARGET = isLocal => {
     return isLocal ? window.localStorage : window.sessionStorage;
 };
 // 平台所需常量: 用于各模块
-const PLAT_KEY_LIST = ['TAOBAO', 'JOS', 'YHD', 'SUNING', 'MGJ', 'YOUZAN', 'OFFLINE', 'DD', 'WX', 'DOUYIN', 'OMNI'];
-const PLAT_CODE_LIST = ['taobao', 'jos', 'yhd', 'suning', 'mogujie', 'youzan', 'offline', 'dangdang', 'weixin', 'douyin', 'omni'];
-const PLAT_NAME_LIST = ['淘宝', '京东', '一号店', '苏宁', '蘑菇街', '有赞', '线下', '当当', '微信', '抖音', '全渠道'];
+const PLAT_KEY_LIST = ['TAOBAO', 'JOS', 'YHD', 'SUNING', 'MGJ', 'YOUZAN', 'OFFLINE', 'DD', 'WEIXIN', 'DOUYIN', 'OMNI', 'WEIMOB'];
+const PLAT_CODE_LIST = ['taobao', 'jos', 'yhd', 'suning', 'mogujie', 'youzan', 'offline', 'dangdang', 'weixin', 'douyin', 'omni', 'weimob'];
+const PLAT_NAME_LIST = ['淘宝', '京东', '一号店', '苏宁', '美丽说', '有赞', '线下', '当当', '微信', '抖音', '全渠道', '微盟'];
 const PLAT_MAP = {
 	key: PLAT_KEY_LIST,
 	code: PLAT_CODE_LIST,
@@ -25,6 +25,9 @@ const modulesMap = {
 	},
 	customerGrouping: {
 		name: '客户分群'
+	},
+	contentManager: {
+		name: '内容管理'
 	},
 	crowdMarketing: {
 		name: '人群营销'
