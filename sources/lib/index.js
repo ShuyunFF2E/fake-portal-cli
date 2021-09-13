@@ -163,7 +163,13 @@
 				id: ccmsRequestCredential.userId,
 				name: ccmsRequestCredential.username
 			};
-			window[CACHE_KEY].merge('common', {user: $rootScope.user, tenant: {tenantId: $rootScope.tenantId}})
+			window[CACHE_KEY].merge('common', {
+				user: $rootScope.user,
+				tenant: {
+					tenantId: $rootScope.tenantId,
+					versionId: '0-PD'
+				}
+			})
 		}
 		updateRootScope();
 	});
