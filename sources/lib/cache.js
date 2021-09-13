@@ -46,6 +46,9 @@ const modulesMap = {
 	},
 	wxcrm: {
 		name: '微信CRM'
+	},
+	memberCare: {
+		name: '会员关怀'
 	}
 };
 
